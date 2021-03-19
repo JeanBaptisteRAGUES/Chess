@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="#" />
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <div id="menuChess" style="display: block;">
+            <form action="" method="GET">
+                <label for="mode">Choisissez un adversaire :</label></br>
+                <select id="mode" name="mode" onchange="checkMode(this);">
+                    <option value=1>Jouer contre un ami</option>
+                    <option value=2>Joueur contre l'ordinateur</option>
+                </select>
+                </br></br>
+                <div id="displayMore" style="display: none;">
+                    <label for="difficulty">Choisissez un niveau de difficulté :</label></br>
+                    <select id="difficulty" name="difficulty" onchange="checkMode2(this);">
+                        <option value=1>Débutant</option>
+                        <option value=2>Intermédiaire</option>
+                        <option value=4>Confirmé</option>
+                        <option value=0>Personnalisée</option>
+                    </select>
+                    <script>
+                        function checkMode2(that){
+                            var elo = document.getElementById("elo").value;
+                            var eloLabel = document.getElementById("eloLabel");
+                            eloLabel.innerText = "Elo : " + elo;
+                            if(that.value == 0){
+                                document.getElementById("displayElo").style.display = "block";
+                            }else{
+                                document.getElementById("displayElo").style.display = "none";
+                            }
+                        }
+                    </script>
+                    </br></br>
+                    <div id="displayElo" style="display: none;">
+                        <label for="elo" id="eloLabel">Elo : 500</label></br>
+                        <input type="range" id="elo" name="elo" min=250 max=1000 value=500 step=50 onchange="displayElo(this);">
+                        </br></br>
+                        <script>
+                            function displayElo(that){
+                                var elo = document.getElementById("elo").value;
+                                var eloLabel = document.getElementById("eloLabel");
+                                eloLabel.innerText = "Elo : " + elo;
+                            }
+                        </script>
+                    </div>
+                    <div id="colorDiv">
+                        <label for="color">Choisissez avec quelle couleur vous voulez jouer :</label></br>
+                        <select id="color" name="color">
+                            <option value=1>Jouer avec les blancs</option>
+                            <option value=2>Jouer avec les noirs</option>
+                        </select>
+                        </br></br>
+                    </div>
+                </div>
+                <!--<input type="submit" value="Jouer">-->
+                <script>
+                    function checkMode(that){
+                        if(that.value == 2){
+                            document.getElementById("displayMore").style.display = "block";
+                        }else{
+                            document.getElementById("displayMore").style.display = "none";
+                        }
+                    }
+                </script>
+            </form>
+            <button onclick="loadBoard()">Jouer</button>
+        </div>
+        <div class="image">
+            <div class="monCanvas">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+        
+        <script src="./javascript/moveInfos.js" async defer></script>
+        <script src="./javascript/piece.js" async defer></script>
+        <script src="./javascript/case.js" async defer></script>
+        <script src="./javascript/chessScript.js" async defer></script>
+    </body>
+</html>
